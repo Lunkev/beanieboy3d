@@ -13,7 +13,7 @@ export const site: SiteConfig = {
   tagline: "beanie down. zero plans. infinite gum.",
   chain: "solana",
   ca: "85CFzyw4j2439QcabKnNNd4AJfMnJ11EPzQ6TXFupHG7",
-  links: { x: "https://x.com/beanieboystonk", buy: "https://pump.fun" },
+  links: { x: "https://x.com/beanieboystonk", buy: "https://www.stonkfun.xyz/token/85CFzyw4j2439QcabKnNNd4AJfMnJ11EPzQ6TXFupHG7" },
   lore: [
     "The beanie stays down, the gum stays in.",
     "He doesn't talk much. He blows bubbles and watches the chart.",
@@ -21,7 +21,7 @@ export const site: SiteConfig = {
   howToBuy: [
     { t: "Get Phantom", d: "Download the Phantom wallet and save your seed phrase somewhere safe." },
     { t: "Load up on SOL", d: "Buy SOL on an exchange and send it to your wallet." },
-    { t: "Find $BEANIE on pump.fun", d: "Paste the contract address. Only trust the CA on this site." },
+    { t: "Buy $BEANIE on StonkFun", d: "Open the buy link on this site or paste the contract address. Only trust the CA here." },
     { t: "Swap and chill", d: "Swap SOL for $BEANIE. Pull the beanie down. Blow a bubble." },
   ],
   memes: ["/memes/1.webp", "/memes/2.webp", "/memes/3.webp", "/memes/4.webp", "/memes/5.webp", "/memes/6.webp", "/memes/7.webp", "/memes/8.webp"],
