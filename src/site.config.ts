@@ -13,7 +13,7 @@ export const site: SiteConfig = {
   tagline: "beanie down. zero plans. infinite gum.",
   chain: "solana",
   ca: "85CFzyw4j2439QcabKnNNd4AJfMnJ11EPzQ6TXFupHG7",
-  links: { x: "https://x.com/", buy: "https://pump.fun" },
+  links: { x: "https://x.com/beanieboystonk", buy: "https://pump.fun" },
   lore: [
     "The beanie stays down, the gum stays in.",
     "He doesn't talk much. He blows bubbles and watches the chart.",
