@@ -1,0 +1,67 @@
+/* ============ Format "toy" — karaktären som leksak ============ */
+.fmt-toy .stage canvas { cursor: default; }
+
+.t-mood, .t-mcap, .t-actions { opacity: 0; pointer-events: none; transition: opacity .5s, transform .5s; }
+.t-mood.on, .t-mcap.on, .t-actions.on { opacity: 1; pointer-events: auto; transition-delay: 1s; }
+
+/* humör-mätare */
+.t-mood { position: fixed; left: 18px; top: 74px; z-index: 9; display: grid; gap: 8px; }
+.t-meter { display: flex; align-items: center; gap: 8px; }
+.t-meter span { width: 30px; height: 30px; display: grid; place-items: center; background: var(--panel); border: 3px solid #000; border-radius: 50%; box-shadow: 0 3px 0 #000; font-size: 14px; color: #ff4f7e; }
+.t-meter i { width: 140px; height: 16px; background: #0003; border: 3px solid #000; border-radius: 999px; overflow: hidden; }
+.t-meter b { display: block; height: 100%; background: repeating-linear-gradient(-45deg, #ff6f95 0 8px, #ff8fb0 8px 16px); transition: width .4s; }
+.t-meter.milk b { background: repeating-linear-gradient(-45deg, #ffffff 0 8px, #dff1ff 8px 16px); }
+
+/* mcap-kort */
+.t-mcap { position: fixed; right: 18px; top: 74px; z-index: 9; width: 210px; display: grid; gap: 4px; padding: 10px 12px 12px; background: var(--panel); color: var(--panel-ink); border: 3px solid #000; border-radius: 16px; box-shadow: 0 5px 0 #000; }
+.t-mcap small { font: 800 11px var(--font-body); letter-spacing: .12em; text-transform: uppercase; opacity: .7; }
+.t-mcap b { font: 400 22px/1.05 var(--font-display); color: var(--accent); text-shadow: 0 2px 0 #000; }
+.t-mcap em { font: 700 12px var(--font-body); font-style: normal; opacity: .75; }
+.t-steps { display: flex; gap: 4px; margin: 4px 0 2px; }
+.t-steps i { flex: 1; height: 10px; border: 2px solid #000; border-radius: 999px; background: #0002; }
+.t-steps i.on { background: var(--accent); }
+.t-mcap button { justify-self: start; margin-top: 4px; padding: 5px 10px; border: 2px solid #000; border-radius: 10px; background: var(--accent2); color: #000; font: 800 12px var(--font-body); box-shadow: 0 2px 0 #000; }
+
+/* knapprad */
+.t-actions { position: fixed; left: 50%; bottom: 92px; z-index: 11; transform: translateX(-50%); display: flex; gap: 8px; }
+.t-actions button { display: grid; justify-items: center; gap: 2px; min-width: 70px; padding: 8px 10px 7px; background: var(--panel); color: var(--panel-ink); border: 3px solid #000; border-radius: 16px; box-shadow: 0 4px 0 #000; font: 800 12px var(--font-body); text-transform: lowercase; transition: transform .1s, box-shadow .1s, background .15s; }
+.t-actions button span { font-size: 22px; line-height: 1; }
+.t-actions button:hover { transform: translateY(-3px); box-shadow: 0 7px 0 #000; background: var(--accent2); }
+.t-actions button:active { transform: translateY(3px); box-shadow: 0 1px 0 #000; }
+.t-actions button.play { background: var(--accent); color: #000; }
+
+/* arkad */
+.t-game { position: fixed; inset: 0; z-index: 12; pointer-events: none; }
+.t-game button { pointer-events: auto; }
+.t-score { position: absolute; top: 72px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; padding: 8px 18px; background: var(--panel); color: var(--panel-ink); border: 3px solid #000; border-radius: 16px; box-shadow: 0 5px 0 #000; }
+.t-score span { font: 800 12px var(--font-body); letter-spacing: .12em; text-transform: uppercase; opacity: .7; }
+.t-score b { font: 400 34px/1 var(--font-display); color: var(--accent); text-shadow: 0 2px 0 #000; min-width: 44px; text-align: center; }
+.t-score em { font-style: normal; color: #ff3b5c; font-size: 20px; letter-spacing: 2px; }
+.t-score em s { text-decoration: none; opacity: .2; }
+.t-score small { font: 700 12px var(--font-body); opacity: .7; }
+.t-exit { position: absolute; top: 74px; right: 18px; width: 44px; height: 44px; border: 3px solid #000; border-radius: 12px; background: #fff; font-weight: 900; box-shadow: 0 4px 0 #000; }
+.t-big { position: absolute; left: 50%; top: 40%; transform: translate(-50%, -50%); font: 400 clamp(56px, 10vw, 120px)/1 var(--font-display); color: #fff; text-shadow: 0 6px 0 #000, 0 0 30px var(--accent); animation: t-pop .5s cubic-bezier(.34,1.6,.64,1); }
+.t-tip { position: absolute; left: 50%; bottom: 96px; transform: translateX(-50%); padding: 7px 14px; background: #000a; color: #fff; border-radius: 999px; font: 700 13px var(--font-body); white-space: nowrap; }
+.t-over { position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%); min-width: 280px; padding: 22px 26px; text-align: center; background: var(--panel); color: var(--panel-ink); border: 4px solid #000; border-radius: 22px; box-shadow: 10px 10px 0 #000; animation: t-pop .45s cubic-bezier(.34,1.6,.64,1); pointer-events: auto; }
+.t-over h3 { margin: 0 0 6px; font: 400 44px/1 var(--font-display); color: var(--accent); text-shadow: 0 3px 0 #000; }
+.t-over p { margin: 0 0 16px; font: 700 16px var(--font-body); }
+.t-over div { display: flex; gap: 10px; justify-content: center; }
+.t-over button { padding: 10px 18px; border: 3px solid #000; border-radius: 14px; background: var(--accent); color: #000; font: 800 15px var(--font-body); box-shadow: 0 4px 0 #000; }
+.t-over button.ghost { background: #fff; }
+@keyframes t-pop { from { scale: .5; opacity: 0; } to { scale: 1; opacity: 1; } }
+
+@media (max-width: 760px), (pointer: coarse) {
+  .t-mood { top: 66px; left: 12px; }
+  .t-meter i { width: 90px; }
+  .t-mcap { top: 66px; right: 10px; width: 150px; padding: 8px 10px; }
+  .t-mcap em { display: none; }
+  .fmt-toy .mute { bottom: auto; top: 148px; left: 12px; }
+  .t-mcap b { font-size: 17px; }
+  .t-actions { bottom: 84px; gap: 5px; }
+  .t-actions button { min-width: 0; width: 60px; padding: 6px 4px; font-size: 10px; }
+  .t-actions button span { font-size: 19px; }
+  .t-score { top: 64px; gap: 10px; padding: 6px 12px; }
+  .t-exit { top: 130px; right: 10px; }
+  .t-tip { white-space: normal; width: 86vw; text-align: center; bottom: 150px; }
+}
+.fmt-toy .hint { bottom: 170px; }

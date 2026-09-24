@@ -1,0 +1,14 @@
+{
+  "public/models/beanie-run.glb": {
+    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_35vFvxEmBodLe106sUHboCTdBVg/hf_20260923_171240_0d6d0069-4ce1-4e40-bb2e-3bbcca099f8b.glb",
+    "strip": true
+  },
+  "public/models/beanie-dance.glb": {
+    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_35vFvxEmBodLe106sUHboCTdBVg/hf_20260923_171303_320b5aae-d032-4b43-8eb3-3ab8cc482fc3.glb",
+    "strip": true
+  },
+  "public/models/beanie-wave.glb": {
+    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_35vFvxEmBodLe106sUHboCTdBVg/hf_20260923_171502_57cdee5d-2f0b-4e85-9cb2-ed20ebefdbfd.glb",
+    "strip": true
+  }
+}

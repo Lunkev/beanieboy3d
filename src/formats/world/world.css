@@ -1,0 +1,37 @@
+/* ============ Format "world" — liten ö ============ */
+.fmt-world .stage canvas { cursor: grab; }
+
+/* platsskyltar ovanför husen (positioneras av motorn) */
+.w-pins { position: fixed; inset: 0; pointer-events: none; z-index: 4; opacity: 0; transition: opacity .8s 1.6s; }
+.w-pins.on { opacity: 1; }
+.w-pin { position: absolute; left: 0; top: 0; pointer-events: auto; cursor: pointer; will-change: transform; transition: opacity .3s; transform-origin: 50% 100%; }
+.w-pin b { display: block; padding: 6px 12px 5px; background: var(--panel); color: var(--panel-ink); border: 3px solid #000; border-radius: 999px; box-shadow: 0 3px 0 #000; font: 800 12px/1 var(--font-body); letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; animation: w-bob 2.4s ease-in-out infinite; }
+.w-pin b::after { content: ""; position: absolute; left: 50%; bottom: -9px; margin-left: -6px; border: 6px solid transparent; border-top: 7px solid #000; }
+.w-pin:hover b, .w-pin.near b { background: var(--accent); color: #000; }
+.w-pin.near b { animation: w-bob .8s ease-in-out infinite; }
+@keyframes w-bob { 50% { transform: translateY(-5px); } }
+
+/* klickmarkör på marken */
+.w-marker { position: fixed; left: 0; top: 0; width: 34px; height: 16px; border: 3px solid #fff; border-radius: 50%; pointer-events: none; z-index: 3; opacity: 0; }
+.w-marker.on { animation: w-ping .7s ease-out forwards; }
+@keyframes w-ping { from { opacity: 1; scale: .3; } to { opacity: 0; scale: 1.4; } }
+
+/* "öppna"-knapp när man står vid en plats */
+.w-prompt { position: fixed; left: 50%; bottom: 96px; z-index: 11; transform: translate(-50%, 20px) scale(.9); opacity: 0; pointer-events: none; display: inline-flex; align-items: center; gap: 10px; padding: 10px 18px 10px 10px; background: var(--accent); color: #000; border: 3px solid #000; border-radius: 16px; box-shadow: 0 5px 0 #000; font: 800 16px var(--font-body); text-transform: lowercase; transition: all .25s cubic-bezier(.34,1.5,.64,1); }
+.w-prompt.on { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+.w-prompt:active { transform: translate(-50%, 3px); box-shadow: 0 2px 0 #000; }
+.w-prompt kbd, .w-keys kbd { display: inline-grid; place-items: center; min-width: 28px; height: 28px; padding: 0 6px; background: #fff; color: #000; border: 2px solid #000; border-radius: 8px; box-shadow: 0 2px 0 #000; font: 800 13px var(--font-body); text-transform: uppercase; }
+
+/* minikarta */
+.w-minimap { position: fixed; right: 18px; bottom: 18px; z-index: 10; width: 120px; height: 120px; border-radius: 50%; border: 3px solid #000; background: color-mix(in srgb, var(--panel) 80%, transparent); box-shadow: 0 4px 0 #000; cursor: pointer; opacity: 0; transition: opacity .6s 1.2s; }
+.w-minimap.on { opacity: 1; }
+
+.w-keys { position: fixed; left: 76px; bottom: 26px; z-index: 9; display: flex; align-items: center; gap: 4px; font: 700 12px var(--font-body); color: var(--ink); text-shadow: 0 1px 2px #0008; opacity: 0; transition: opacity .6s 1.4s; pointer-events: none; }
+.w-keys.on { opacity: .85; }
+.w-keys kbd { min-width: 22px; height: 22px; font-size: 11px; }
+
+@media (max-width: 760px), (pointer: coarse) {
+  .w-keys { display: none; }
+  .w-minimap { width: 84px; height: 84px; right: 10px; bottom: auto; top: 70px; }
+  .w-prompt { bottom: 86px; font-size: 15px; }
+}

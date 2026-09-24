@@ -1,0 +1,108 @@
+*,
+*::before,
+*::after { box-sizing: border-box; }
+html, body, #root { margin: 0; height: 100%; overflow: hidden; background: #000; }
+body { font-family: var(--font-body, system-ui); -webkit-font-smoothing: antialiased; }
+button { font: inherit; cursor: pointer; }
+a { color: inherit; }
+
+.app { position: fixed; inset: 0; background: var(--bg); color: var(--ink); }
+.stage { position: absolute; inset: 0; }
+.stage canvas { display: block; cursor: grab; touch-action: none; }
+.stage canvas:active { cursor: grabbing; }
+
+/* ---------- hover-etikett + pratbubbla (positioneras av motorn) ---------- */
+.hover-label, .bubble { position: fixed; left: 0; top: 0; pointer-events: none; z-index: 5; opacity: 0; transition: opacity .18s; will-change: transform; }
+.hover-label { background: var(--accent); color: #000; font: 800 12px/1 var(--font-body); letter-spacing: .12em; text-transform: uppercase; padding: 7px 10px 6px; border-radius: 999px; border: 2px solid #000; box-shadow: 0 3px 0 #000; white-space: nowrap; }
+.hover-label.show { opacity: 1; }
+.bubble { background: #fff; color: #111; font: 700 15px/1.3 var(--font-body); padding: 10px 14px; border: 3px solid #111; border-radius: 16px; max-width: 240px; box-shadow: 0 4px 0 #111; margin-top: -14px; }
+.bubble::after { content: ""; position: absolute; left: 50%; bottom: -13px; margin-left: -8px; border: 8px solid transparent; border-top: 10px solid #111; }
+.bubble.show { opacity: 1; animation: pop .25s cubic-bezier(.34,1.56,.64,1); }
+@keyframes pop { from { scale: .6; } to { scale: 1; } }
+
+/* ---------- gate ---------- */
+.gate { position: absolute; inset: 0; z-index: 20; display: grid; place-items: center; background: color-mix(in srgb, var(--bg) 55%, transparent); backdrop-filter: blur(6px); transition: opacity .9s ease, visibility .9s; }
+.gate.gone { opacity: 0; visibility: hidden; pointer-events: none; }
+.gate-inner { text-align: center; padding: 24px; }
+.gate-title { font: 400 clamp(56px, 13vw, 168px)/.9 var(--font-display); color: var(--ink); letter-spacing: .02em; text-shadow: 0 6px 0 #000, 0 0 40px var(--accent); animation: bob 3s ease-in-out infinite; }
+.gate-sub { margin-top: 14px; font: 600 clamp(14px, 2vw, 18px)/1.3 var(--font-body); opacity: .85; }
+@keyframes bob { 50% { transform: translateY(-8px) rotate(-1deg); } }
+.bar { width: min(340px, 70vw); height: 14px; margin: 34px auto 10px; border: 3px solid var(--ink); border-radius: 999px; overflow: hidden; background: #0006; }
+.bar i { display: block; height: 100%; background: repeating-linear-gradient(-45deg, var(--accent) 0 10px, var(--accent2) 10px 20px); transition: width .25s; }
+.gate-load { font: 600 13px var(--font-body); letter-spacing: .08em; text-transform: lowercase; opacity: .8; }
+.enter { margin-top: 34px; font: 400 clamp(26px, 4vw, 38px)/1 var(--font-display); letter-spacing: .08em; color: #000; background: var(--accent); border: 4px solid #000; border-radius: 18px; padding: 16px 44px 14px; box-shadow: 0 7px 0 #000; animation: pulse 1.6s ease-in-out infinite; transition: transform .1s, box-shadow .1s; }
+.enter:hover { background: var(--accent2); }
+.enter:active { transform: translateY(5px); box-shadow: 0 2px 0 #000; }
+@keyframes pulse { 50% { transform: scale(1.06); } }
+
+/* ---------- HUD ---------- */
+.hud { position: absolute; top: 0; left: 0; right: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; padding: 16px 18px; pointer-events: none; opacity: 0; transform: translateY(-12px); transition: all .6s .8s; }
+.hud.on { opacity: 1; transform: none; }
+.hud > * { pointer-events: auto; }
+.brand { font: 400 30px/1 var(--font-display); color: var(--ink); text-shadow: 0 3px 0 #000; cursor: pointer; }
+.hud-right { display: flex; gap: 8px; align-items: center; }
+.pill, .ca { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px; border: 3px solid #000; border-radius: 12px; background: var(--panel); color: var(--panel-ink); font: 800 13px var(--font-body); text-decoration: none; box-shadow: 0 4px 0 #000; transition: transform .1s, box-shadow .1s, background .15s; }
+.pill:hover, .ca:hover { transform: translateY(-2px); box-shadow: 0 6px 0 #000; }
+.pill:active, .ca:active { transform: translateY(3px); box-shadow: 0 1px 0 #000; }
+.pill.buy { background: var(--accent); color: #000; }
+.ca span { background: var(--accent); color: #000; border-radius: 6px; padding: 2px 6px; font-size: 11px; }
+.ca.copied { background: var(--accent2); color: #000; }
+
+.dock { position: absolute; bottom: 18px; left: 50%; z-index: 10; display: flex; gap: 6px; padding: 6px; background: #000a; border: 3px solid #000; border-radius: 16px; backdrop-filter: blur(8px); transform: translate(-50%, 30px); opacity: 0; transition: all .6s 1s; }
+.dock.on { transform: translate(-50%, 0); opacity: 1; }
+.dock button { border: 0; background: transparent; color: var(--ink); font: 800 13px var(--font-body); letter-spacing: .1em; padding: 10px 14px; border-radius: 10px; }
+.dock button:hover, .dock button.active { background: var(--accent); color: #000; }
+
+.mute { position: absolute; left: 18px; bottom: 18px; z-index: 10; width: 44px; height: 44px; border: 3px solid #000; border-radius: 12px; background: var(--panel); box-shadow: 0 4px 0 #000; font-size: 18px; opacity: 0; transition: opacity .6s 1s; }
+.mute.on { opacity: 1; }
+.hint { position: absolute; bottom: 86px; left: 50%; transform: translateX(-50%); z-index: 9; font: 600 12px var(--font-body); letter-spacing: .08em; color: var(--ink); background: #0008; padding: 7px 12px; border-radius: 999px; opacity: 0; transition: opacity .8s; pointer-events: none; white-space: nowrap; }
+.hint.on { opacity: .9; transition-delay: 2.4s; }
+
+/* ---------- panel ---------- */
+.panel { position: absolute; z-index: 15; top: 84px; right: 18px; bottom: 90px; width: min(430px, calc(100vw - 36px)); display: flex; flex-direction: column; background: var(--panel); color: var(--panel-ink); border: 4px solid #000; border-radius: 20px; box-shadow: 10px 10px 0 #000; transform: translateX(120%) rotate(3deg); transition: transform .5s cubic-bezier(.34,1.3,.64,1); overflow: hidden; }
+.panel.open { transform: none; }
+.panel-head { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px 12px 18px; background: var(--accent); color: #000; border-bottom: 4px solid #000; font: 400 22px/1 var(--font-display); letter-spacing: .06em; }
+.panel-head button { width: 34px; height: 34px; border: 3px solid #000; border-radius: 10px; background: #fff; font-weight: 900; }
+.panel-body { padding: 18px 20px 22px; overflow: auto; font: 500 15px/1.6 var(--font-body); }
+.panel-title { margin: 0 0 10px; font: 400 44px/1 var(--font-display); color: var(--accent); text-shadow: 0 3px 0 #000; }
+.panel-body p { margin: 0 0 12px; }
+.ca-box { display: grid; gap: 4px; width: 100%; margin-top: 12px; padding: 12px 14px; text-align: left; background: #0003; color: inherit; border: 3px dashed var(--accent); border-radius: 14px; }
+.ca-box small { font: 800 11px var(--font-body); letter-spacing: .14em; opacity: .7; }
+.ca-box b { font: 700 13px/1.3 ui-monospace, monospace; word-break: break-all; }
+.ca-box em { font: 700 11px var(--font-body); color: var(--accent); font-style: normal; }
+.meme-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.meme-grid button { padding: 0; border: 3px solid #000; border-radius: 12px; overflow: hidden; aspect-ratio: 1; background: #000; box-shadow: 0 4px 0 #000; transition: transform .12s; }
+.meme-grid button:hover { transform: translateY(-3px) rotate(-1deg); }
+.meme-grid img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.steps { list-style: none; counter-reset: s; padding: 0; margin: 0; display: grid; gap: 10px; }
+.steps li { counter-increment: s; display: grid; gap: 2px; padding: 12px 14px 12px 54px; position: relative; background: #0002; border: 3px solid #000; border-radius: 14px; }
+.steps li::before { content: counter(s); position: absolute; left: 12px; top: 12px; width: 30px; height: 30px; display: grid; place-items: center; background: var(--accent); color: #000; border: 3px solid #000; border-radius: 50%; font: 400 16px var(--font-display); }
+.steps span { opacity: .8; font-size: 14px; }
+.big-buy { display: block; margin-top: 14px; text-align: center; padding: 16px; background: var(--accent); color: #000; border: 4px solid #000; border-radius: 16px; box-shadow: 0 6px 0 #000; font: 400 24px var(--font-display); text-decoration: none; letter-spacing: .05em; }
+.dex { width: 100%; height: 100%; min-height: 420px; border: 3px solid #000; border-radius: 12px; }
+.soon { display: grid; place-items: center; gap: 6px; min-height: 280px; text-align: center; }
+.soon b { font: 400 56px var(--font-display); color: var(--accent); text-shadow: 0 4px 0 #000; }
+.lightbox { position: fixed; inset: 0; z-index: 30; display: grid; place-items: center; background: #000c; backdrop-filter: blur(6px); cursor: zoom-out; }
+.lightbox img { max-width: 90vw; max-height: 86vh; border: 4px solid #000; border-radius: 16px; box-shadow: 0 10px 0 #000; }
+
+@media (max-width: 760px) {
+  .hud { padding: 12px; }
+  .brand { font-size: 22px; }
+  .pill, .ca { height: 36px; padding: 0 10px; font-size: 12px; }
+  .ca { display: none; }
+  .dock { bottom: 12px; width: calc(100vw - 24px); justify-content: space-between; }
+  .dock button { padding: 10px 8px; font-size: 12px; letter-spacing: .04em; }
+  .mute { bottom: 76px; left: 12px; width: 40px; height: 40px; }
+  .hint { bottom: 76px; font-size: 11px; }
+  .panel { top: auto; left: 10px; right: 10px; bottom: 76px; width: auto; height: 62vh; transform: translateY(120%); border-radius: 18px; box-shadow: 6px 6px 0 #000; }
+  .panel.open { transform: none; transition-delay: .2s; }
+}
+
+/* ---------- bootskärm (format os) ---------- */
+.gate.boot { background: #000; backdrop-filter: none; place-items: stretch; }
+.gate.boot .gate-inner { display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: "Cascadia Mono", Consolas, ui-monospace, monospace; }
+.boot-lines { position: absolute; left: 24px; top: 20px; margin: 0; color: #c8c8c8; font: 14px/1.6 "Cascadia Mono", Consolas, ui-monospace, monospace; text-align: left; white-space: pre-wrap; max-width: calc(100% - 48px); }
+.boot-lines .cursor { animation: blink 1s steps(1) infinite; font-style: normal; }
+@keyframes blink { 50% { opacity: 0; } }
+.gate.boot .gate-title { text-shadow: 0 0 30px var(--accent); }
+.fmt-os .mute { top: auto; bottom: 48px; right: 10px; left: auto; z-index: 950; }

@@ -1,0 +1,126 @@
+/* ============ Format "os" — fejk-operativsystem. Tre teman: xp, win95, mac ============ */
+.os { position: fixed; inset: 0; overflow: hidden; font: 13px/1.35 Tahoma, "Segoe UI", system-ui, sans-serif; color: #111; user-select: none; }
+.os-wall { position: absolute; inset: 0; background-size: cover; background-position: center; transform: scale(1.04); filter: saturate(1.05); transition: transform 1.4s ease; }
+.os.on .os-wall { transform: none; }
+.os-pet { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+.os-pet-hit { position: absolute; left: 0; top: 0; z-index: 4; cursor: pointer; }
+.os .bubble { z-index: 900; }
+
+/* ---- ikoner ---- */
+.os-icons { position: absolute; left: 10px; top: 10px; z-index: 2; display: grid; grid-auto-flow: column; grid-template-rows: repeat(auto-fill, 92px); gap: 4px; height: calc(100% - 60px); }
+.os-icon { width: 84px; background: none; border: 1px solid transparent; color: #fff; display: grid; justify-items: center; gap: 4px; padding: 6px 2px; border-radius: 3px; text-shadow: 0 1px 2px #000, 0 0 4px #000; }
+.os-icon .glyph { font-size: 34px; line-height: 1; filter: drop-shadow(0 2px 2px #0008); }
+.os-icon .glyph img { width: 40px; height: 40px; object-fit: contain; image-rendering: pixelated; }
+.os-icon .lbl { font-size: 12px; text-align: center; }
+.os-icon:hover, .os-icon:focus { background: #3a6fd855; border-color: #9cc0ff88; outline: none; }
+
+/* ---- fönster (bas) ---- */
+.os-win { position: absolute; display: flex; flex-direction: column; min-width: 220px; min-height: 120px; animation: winIn .18s ease-out; }
+@keyframes winIn { from { transform: scale(.94); opacity: 0; } }
+.os-win.min { display: none; }
+.os-win.max { left: 0 !important; top: 0 !important; width: 100% !important; height: calc(100% - 40px) !important; }
+.os-title { display: flex; align-items: center; justify-content: space-between; cursor: default; touch-action: none; flex: none; }
+.os-title .t { font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.os-title .btns { display: flex; gap: 2px; }
+.os-body { flex: 1; overflow: auto; position: relative; user-select: text; }
+.os-body.body-about, .os-body.body-buy, .os-body.body-memes, .os-body.body-chart { padding: 14px 16px; }
+.os-body .panel-title { color: var(--accent); font: 400 38px/1 var(--font-display); text-shadow: 0 2px 0 #0006; margin: 2px 0 10px; }
+.os-body .dex { height: 100%; min-height: 360px; }
+.trash { padding: 18px; }
+
+/* ---- 3D-visare ---- */
+.viewer { display: flex; flex-direction: column; height: 100%; }
+.viewer-stage { flex: 1; position: relative; min-height: 200px; cursor: grab; }
+.viewer-stage canvas { position: absolute; inset: 0; }
+.viewer-bar { display: flex; flex-wrap: wrap; gap: 4px; padding: 6px; align-items: center; }
+.viewer-bar label { display: flex; align-items: center; gap: 6px; margin-left: auto; font-size: 12px; }
+.viewer-bar input[type=range] { width: 90px; }
+
+/* ---- terminal ---- */
+.term { background: #0b0c0f; color: #9dffb0; font: 13px/1.5 "Cascadia Mono", Consolas, ui-monospace, monospace; padding: 10px 12px; min-height: 100%; }
+.term div { white-space: pre-wrap; word-break: break-word; }
+.term form { display: flex; gap: 0; }
+.term input { flex: 1; background: none; border: 0; color: inherit; font: inherit; outline: none; caret-color: #9dffb0; }
+
+/* ---- aktivitetsfält + startmeny (xp/win95) ---- */
+.os-taskbar { position: absolute; left: 0; right: 0; bottom: 0; height: 40px; z-index: 800; display: flex; align-items: center; gap: 6px; }
+.os-tasks { flex: 1; display: flex; gap: 4px; overflow: hidden; }
+.os-tasks button { max-width: 170px; height: 30px; padding: 0 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left; }
+.os-tray { display: flex; align-items: center; gap: 10px; height: 100%; padding: 0 12px; }
+.os-tray button, .os-tray a { font: inherit; background: none; border: 0; color: inherit; text-decoration: none; cursor: pointer; }
+.os-startmenu { position: absolute; left: 0; bottom: 40px; z-index: 850; width: 260px; display: flex; }
+.os-startmenu .side { writing-mode: vertical-rl; transform: rotate(180deg); font: 700 20px/1 var(--font-display); padding: 10px 6px; color: #fff; }
+.os-startmenu ul { list-style: none; margin: 0; padding: 6px 0; flex: 1; }
+.os-startmenu li button, .os-startmenu li a { display: flex; gap: 10px; align-items: center; width: 100%; padding: 8px 12px; background: none; border: 0; font: inherit; text-align: left; color: inherit; text-decoration: none; }
+.os-startmenu li span { font-size: 20px; width: 26px; text-align: center; }
+.os-startmenu .sep { height: 1px; margin: 4px 8px; }
+
+/* ================= XP ================= */
+.os-xp .os-win { border-radius: 8px 8px 0 0; background: #ece9d8; border: 3px solid #0831d9; border-top: 0; box-shadow: 2px 4px 14px #0007; }
+.os-xp .os-title { height: 30px; padding: 0 4px 0 10px; color: #fff; border-radius: 7px 7px 0 0; background: linear-gradient(#0a5fe8, #0831d9 18%, #0a47c2 88%, #0831d9); text-shadow: 1px 1px #0a1f73; }
+.os-xp .os-win:not(.active) .os-title { background: linear-gradient(#7c9be6, #6d88d8); }
+.os-xp .os-title .btns button { width: 22px; height: 22px; border: 1px solid #fff; border-radius: 3px; color: #fff; font-weight: 700; background: linear-gradient(#3e87f5, #1c5bd8); line-height: 1; padding: 0; }
+.os-xp .os-title .btns button:last-child { background: linear-gradient(#e8745a, #c93a17); }
+.os-xp .os-body { background: #fff; margin: 0 1px 1px; border-top: 1px solid #0831d9; }
+.os-xp .os-taskbar { background: linear-gradient(#3168d5, #1e52c7 12%, #245edb 90%, #1941a5); color: #fff; }
+.os-xp .os-start { height: 40px; padding: 0 22px 0 12px; border: 0; border-radius: 0 12px 12px 0; color: #fff; font: italic 700 18px Trebuchet MS, sans-serif; text-shadow: 1px 1px 2px #0006; background: linear-gradient(#3c9a3c, #2f8b2f 20%, #3da53d 80%, #2b7a2b); display: flex; align-items: center; gap: 6px; }
+.os-xp .os-start .flag { width: 18px; height: 18px; border-radius: 3px; background: conic-gradient(#f35325 0 25%, #81bc06 0 50%, #ffba08 0 75%, #05a6f0 0); }
+.os-xp .os-tasks button { color: #fff; background: #3c81f3; border: 1px solid #1941a5; border-radius: 3px; }
+.os-xp .os-tasks button.on { background: #1e4fb8; box-shadow: inset 1px 1px 3px #0006; }
+.os-xp .os-tray { background: #0f8fe8; border-left: 1px solid #0a5fb4; }
+.os-xp .os-startmenu { background: #fff; border: 2px solid #0831d9; border-radius: 8px 8px 0 0; overflow: hidden; box-shadow: 3px 3px 12px #0007; }
+.os-xp .os-startmenu .side { background: linear-gradient(#1a5bd6, #0a3ba8); }
+.os-xp .os-startmenu li button:hover, .os-xp .os-startmenu li a:hover { background: #316ac5; color: #fff; }
+.os-xp .os-startmenu .sep { background: #ccc; }
+.os-xp .viewer-bar { background: #ece9d8; border-top: 1px solid #aca899; }
+.os-xp .viewer-bar button { border: 1px solid #003c74; border-radius: 3px; background: linear-gradient(#fff, #ecebe6); padding: 3px 8px; font: inherit; }
+.os-xp .viewer-bar button.on { background: #dfe9ff; }
+
+/* ================= WIN95 ================= */
+.os-win95 { font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif; }
+.os-win95 .bevel, .os-win95 .os-win, .os-win95 .os-taskbar, .os-win95 .os-startmenu, .os-win95 .os-tasks button, .os-win95 .os-start, .os-win95 .viewer-bar button, .os-win95 .os-title .btns button { background: #c0c0c0; border: 2px solid; border-color: #fff #404040 #404040 #fff; box-shadow: inset -1px -1px #808080, inset 1px 1px #dfdfdf; }
+.os-win95 .os-win { padding: 2px; }
+.os-win95 .os-title { height: 22px; padding: 0 2px 0 6px; color: #fff; background: linear-gradient(90deg, #000080, #1084d0); }
+.os-win95 .os-win:not(.active) .os-title { background: linear-gradient(90deg, #808080, #b5b5b5); }
+.os-win95 .os-title .btns button { width: 18px; height: 16px; padding: 0; font: 700 11px/1 sans-serif; color: #000; border-width: 1px; }
+.os-win95 .os-body { background: #fff; margin-top: 2px; border: 2px solid; border-color: #808080 #fff #fff #808080; }
+.os-win95 .os-taskbar { border-width: 2px 0 0; height: 40px; padding: 2px 4px; }
+.os-win95 .os-start { height: 32px; padding: 0 8px; font: 700 14px sans-serif; display: flex; align-items: center; gap: 6px; }
+.os-win95 .os-start.on, .os-win95 .os-tasks button.on { border-color: #404040 #fff #fff #404040; box-shadow: inset 1px 1px #808080; background: repeating-conic-gradient(#c0c0c0 0 25%, #dcdcdc 0 50%) 0 0 / 4px 4px; }
+.os-win95 .os-start .flag { width: 18px; height: 16px; background: conic-gradient(#f00 0 25%, #0a0 0 50%, #ff0 0 75%, #00f 0); transform: skewX(-8deg); }
+.os-win95 .os-tray { border: 2px solid; border-color: #808080 #fff #fff #808080; height: 30px; }
+.os-win95 .os-startmenu .side { background: #808080; color: #c0c0c0; }
+.os-win95 .os-startmenu li button:hover, .os-win95 .os-startmenu li a:hover { background: #000080; color: #fff; }
+.os-win95 .os-startmenu .sep { background: #808080; border-bottom: 1px solid #fff; }
+.os-win95 .os-icon:hover { background: #00008088; }
+.os-win95 .viewer-bar { background: #c0c0c0; }
+.os-win95 .viewer-bar button { padding: 2px 8px; font: inherit; }
+
+/* ================= MAC (klassisk platina + dock) ================= */
+.os-mac { font-family: "Chicago", "Geneva", Charcoal, -apple-system, system-ui, sans-serif; }
+.os-menubar { position: absolute; left: 0; right: 0; top: 0; height: 24px; z-index: 800; display: flex; align-items: center; gap: 16px; padding: 0 12px; background: #eee; border-bottom: 1px solid #000; font-weight: 700; }
+.os-menubar .spacer { flex: 1; }
+.os-menubar button { font: inherit; background: none; border: 0; cursor: pointer; }
+.os-mac .os-icons { top: 36px; }
+.os-mac .os-win { background: #ddd; border: 1px solid #000; box-shadow: 2px 2px 0 #0006; }
+.os-mac .os-title { height: 22px; padding: 0 6px; background: repeating-linear-gradient(#fff 0 1px, #bbb 1px 2px); border-bottom: 1px solid #000; justify-content: center; position: relative; }
+.os-mac .os-title .t { background: #ddd; padding: 0 10px; }
+.os-mac .os-title .btns { position: absolute; left: 6px; }
+.os-mac .os-title .btns button { width: 13px; height: 13px; padding: 0; border: 1px solid #000; background: #ddd; font-size: 0; }
+.os-mac .os-body { background: #fff; margin: 3px; border: 1px solid #555; }
+.os-mac .os-win.max { top: 24px !important; height: calc(100% - 100px) !important; }
+.os-dock { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); z-index: 800; display: flex; gap: 8px; padding: 8px 12px; background: #fff6; backdrop-filter: blur(10px); border: 1px solid #fff9; border-radius: 18px; }
+.os-dock button { width: 48px; height: 48px; font-size: 32px; background: none; border: 0; transition: transform .15s; }
+.os-dock button:hover { transform: translateY(-8px) scale(1.25); }
+.os-dock img { width: 44px; height: 44px; object-fit: contain; }
+.os-mac .viewer-bar { background: #ddd; border-top: 1px solid #555; }
+.os-mac .viewer-bar button { border: 1px solid #000; border-radius: 5px; background: #fff; padding: 2px 8px; font: inherit; }
+
+/* mobil */
+@media (max-width: 760px) {
+  .os-icons { grid-auto-flow: row; grid-template-columns: repeat(4, 1fr); grid-template-rows: none; height: auto; right: 10px; }
+  .os-icon { width: auto; }
+  .os-tasks button { max-width: 90px; }
+  .os-tray button { display: none; }
+}
+.os .ca-box { background: #f6f6f6; }

@@ -1,0 +1,148 @@
+/* ============ Skin "nintendo" — runt, knubbigt, glatt (Switch-meny / Mario-HUD) ============
+   Inga svarta konturer: vita ramar, mjuka skuggor, 3D-knappar med mörkare underkant, studsiga animationer
+   och en pulserande cyan markeringsring (som Switch-menyn). Allt scopat under .skin-nintendo så det
+   vinner över formatens CSS som laddas senare. */
+.skin-nintendo {
+  --n-red: #f0463c; --n-red-d: #b8261f;
+  --n-blue: #2d8ff0; --n-blue-d: #1a5fb4;
+  --n-green: #3cc257; --n-green-d: #22873a;
+  --n-yellow: #ffd02e; --n-yellow-d: #d19b00;
+  --n-acc-d: color-mix(in srgb, var(--accent) 68%, #4a1600);
+  --n-ink: var(--panel-ink);
+  --n-sel: #25d9f5;
+  --n-soft: 0 12px 28px rgb(40 20 0 / .18);
+  --n-bounce: cubic-bezier(.34, 1.56, .64, 1);
+}
+
+/* ---- gemensamt: knubbig knapp + markeringsring ---- */
+.skin-nintendo :is(.pill, .ca, .enter, .big-buy, .dock button, .w-prompt, .mute, .panel-head button) {
+  border: 0; transition: transform .18s var(--n-bounce), box-shadow .12s, background .15s, filter .15s;
+}
+.skin-nintendo :is(.pill, .ca, .dock button, .big-buy, .enter, .meme-grid button, .w-prompt)::after {
+  content: ""; position: absolute; inset: -6px; border-radius: inherit; border: 4px solid var(--n-sel);
+  opacity: 0; pointer-events: none; transition: opacity .15s;
+}
+.skin-nintendo :is(.pill, .ca, .dock button, .big-buy, .enter, .meme-grid button, .w-prompt):is(:hover, :focus-visible)::after,
+.skin-nintendo .dock button.active::after { opacity: 1; animation: n-sel 1.1s ease-in-out infinite; }
+.skin-nintendo :is(.pill, .ca, .dock button, .big-buy, .enter, .meme-grid button) { position: relative; }
+@keyframes n-sel { 50% { border-color: #ffffff; inset: -8px; } }
+.skin-nintendo :focus-visible { outline: none; }
+
+/* ---- hover-etikett + pratbubbla ---- */
+.skin-nintendo .hover-label { background: #fff; color: var(--n-ink); border: 0; box-shadow: 0 4px 0 rgb(0 0 0 / .12), var(--n-soft); font: 800 13px/1 var(--font-body); letter-spacing: .06em; padding: 9px 14px 8px; }
+.skin-nintendo .hover-label::before { content: ""; display: inline-block; width: 9px; height: 9px; margin-right: 7px; border-radius: 50%; background: var(--accent); vertical-align: 1px; }
+.skin-nintendo .bubble { background: #fff; color: var(--n-ink); border: 0; border-radius: 24px; padding: 12px 18px; font: 800 16px/1.3 var(--font-body); box-shadow: 0 5px 0 rgb(0 0 0 / .1), var(--n-soft); }
+.skin-nintendo .bubble::after { bottom: -14px; margin-left: -10px; border: 10px solid transparent; border-top: 12px solid #fff; border-bottom: 0; }
+
+/* ---- gate / laddare ---- */
+.skin-nintendo .gate-title { font-weight: 700; color: #fff; -webkit-text-stroke: .09em var(--accent); paint-order: stroke fill; text-shadow: 0 .07em 0 var(--n-acc-d), 0 .12em .2em rgb(0 0 0 / .25); }
+.skin-nintendo .gate-sub { font-weight: 800; color: var(--n-ink); background: #fff; display: inline-block; padding: 8px 18px; border-radius: 999px; box-shadow: var(--n-soft); opacity: 1; }
+.skin-nintendo .bar { height: 22px; border: 0; background: #fff; padding: 4px; box-shadow: inset 0 3px 0 rgb(0 0 0 / .08), var(--n-soft); }
+.skin-nintendo .bar i { border-radius: 999px; background: repeating-linear-gradient(-45deg, var(--accent) 0 12px, var(--accent2) 12px 24px); background-size: 34px 34px; animation: n-stripes .8s linear infinite; }
+@keyframes n-stripes { to { background-position: 34px 0; } }
+.skin-nintendo .gate-load { font-weight: 800; color: var(--n-ink); opacity: .8; }
+.skin-nintendo .enter { font-weight: 700; color: #fff; background: var(--accent); border-radius: 999px; padding: 18px 56px 16px; text-shadow: 0 3px 0 rgb(0 0 0 / .2);
+  box-shadow: inset 0 4px 0 rgb(255 255 255 / .35), inset 0 -6px 0 rgb(0 0 0 / .12), 0 8px 0 var(--n-acc-d), 0 16px 30px rgb(0 0 0 / .25); animation: n-breathe 1.8s ease-in-out infinite; }
+.skin-nintendo .enter:hover { background: var(--accent); filter: brightness(1.06); }
+.skin-nintendo .enter:active { transform: translateY(6px); box-shadow: inset 0 4px 0 rgb(255 255 255 / .35), 0 2px 0 var(--n-acc-d); animation: none; }
+@keyframes n-breathe { 50% { transform: scale(1.05); } }
+
+/* ---- HUD ---- */
+.skin-nintendo .brand { font-weight: 700; font-size: 34px; color: #fff; -webkit-text-stroke: 7px var(--accent); paint-order: stroke fill; text-shadow: 0 4px 0 var(--n-acc-d), 0 8px 16px rgb(0 0 0 / .2); transition: transform .2s var(--n-bounce); }
+.skin-nintendo .brand:hover { transform: scale(1.08) rotate(-3deg); }
+.skin-nintendo .hud-right { gap: 10px; }
+.skin-nintendo :is(.pill, .ca) { height: 44px; padding: 0 18px; border-radius: 999px; font: 800 14px var(--font-body); letter-spacing: .04em; color: var(--n-ink); background: #fff;
+  box-shadow: inset 0 -4px 0 rgb(0 0 0 / .08), 0 5px 0 #d8cbb8, 0 10px 20px rgb(0 0 0 / .15); }
+.skin-nintendo :is(.pill, .ca):hover { transform: translateY(-3px) scale(1.04); box-shadow: inset 0 -4px 0 rgb(0 0 0 / .08), 0 7px 0 #d8cbb8, 0 14px 24px rgb(0 0 0 / .18); }
+.skin-nintendo :is(.pill, .ca):active { transform: translateY(4px); box-shadow: 0 1px 0 #d8cbb8; }
+.skin-nintendo .pill[aria-label="X"] { width: 44px; padding: 0; justify-content: center; color: #fff; background: var(--n-blue); box-shadow: inset 0 3px 0 rgb(255 255 255 / .3), 0 5px 0 var(--n-blue-d), 0 10px 20px rgb(0 0 0 / .15); }
+.skin-nintendo .pill.buy { color: #fff; background: var(--n-green); padding: 0 22px; text-shadow: 0 2px 0 rgb(0 0 0 / .18); box-shadow: inset 0 3px 0 rgb(255 255 255 / .3), 0 5px 0 var(--n-green-d), 0 10px 20px rgb(0 0 0 / .15); }
+.skin-nintendo .ca span { background: var(--accent); color: #fff; border-radius: 999px; padding: 3px 9px; font-size: 11px; }
+.skin-nintendo .ca.copied { background: var(--n-yellow); }
+
+/* dock: vit kapsel med färgade knappar (röd/blå/grön/gul) */
+.skin-nintendo .dock { gap: 8px; padding: 8px; background: #fff; border: 0; border-radius: 999px; box-shadow: 0 6px 0 #e3d7c4, 0 18px 36px rgb(0 0 0 / .22); backdrop-filter: none; }
+.skin-nintendo .dock button { --c: var(--n-red); --d: var(--n-red-d); padding: 11px 20px 10px; border-radius: 999px; color: #fff; background: var(--c); font: 800 14px var(--font-body); letter-spacing: .06em;
+  text-shadow: 0 2px 0 rgb(0 0 0 / .18); box-shadow: inset 0 3px 0 rgb(255 255 255 / .3), 0 4px 0 var(--d); }
+.skin-nintendo .dock button:nth-child(4n+2) { --c: var(--n-blue); --d: var(--n-blue-d); }
+.skin-nintendo .dock button:nth-child(4n+3) { --c: var(--n-green); --d: var(--n-green-d); }
+.skin-nintendo .dock button:nth-child(4n+4) { --c: var(--n-yellow); --d: var(--n-yellow-d); color: #4a3200; text-shadow: 0 2px 0 rgb(255 255 255 / .4); }
+.skin-nintendo .dock button:hover, .skin-nintendo .dock button.active { background: var(--c); color: #fff; transform: translateY(-4px) scale(1.06); }
+.skin-nintendo .dock button:nth-child(4n+4):is(:hover, .active) { color: #4a3200; }
+.skin-nintendo .dock button:active { transform: translateY(3px); box-shadow: inset 0 3px 0 rgb(255 255 255 / .3), 0 1px 0 var(--d); }
+
+.skin-nintendo .mute { border-radius: 50%; background: #fff; box-shadow: 0 5px 0 #d8cbb8, 0 10px 20px rgb(0 0 0 / .15); }
+.skin-nintendo .mute:hover { transform: scale(1.1) rotate(-6deg); }
+.skin-nintendo .hint { background: #fff; color: var(--n-ink); font-weight: 800; padding: 9px 16px; box-shadow: var(--n-soft); }
+
+/* ---- panel: gräddvit kort med prickmönster, poppar in ---- */
+.skin-nintendo .panel { border: 0; border-radius: 34px; color: var(--n-ink);
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 13%, transparent) 2.5px, transparent 3px) 0 0 / 24px 24px, var(--panel);
+  box-shadow: 0 0 0 6px #fff, 0 12px 0 6px rgb(0 0 0 / .1), 0 30px 60px rgb(0 0 0 / .28);
+  transform: translateX(30px) scale(.6); opacity: 0; transition: transform .45s var(--n-bounce), opacity .2s; }
+.skin-nintendo .panel.open { transform: none; opacity: 1; }
+.skin-nintendo .panel-head { margin: 12px 12px 0; padding: 10px 10px 10px 22px; border: 0; border-radius: 999px; background: var(--accent); color: #fff; font-weight: 700; font-size: 24px; letter-spacing: .05em;
+  text-shadow: 0 3px 0 var(--n-acc-d); box-shadow: inset 0 4px 0 rgb(255 255 255 / .3), inset 0 -5px 0 rgb(0 0 0 / .1); }
+.skin-nintendo .panel-head button { width: 40px; height: 40px; border-radius: 50%; color: #fff; background: var(--n-red); font: 900 16px var(--font-body); box-shadow: inset 0 3px 0 rgb(255 255 255 / .3), 0 4px 0 var(--n-red-d); }
+.skin-nintendo .panel-head button:hover { transform: scale(1.12) rotate(90deg); }
+.skin-nintendo .panel-body { padding: 18px 24px 24px; font: 700 15.5px/1.6 var(--font-body); }
+.skin-nintendo .panel-title { font-weight: 700; font-size: 48px; color: #fff; -webkit-text-stroke: 8px var(--accent); paint-order: stroke fill; text-shadow: 0 5px 0 var(--n-acc-d); margin-bottom: 14px; }
+.skin-nintendo .ca-box { background: #fff; border: 0; border-radius: 22px; padding: 14px 18px; box-shadow: 0 5px 0 #e8dcc8, 0 8px 18px rgb(0 0 0 / .08); transition: transform .18s var(--n-bounce); }
+.skin-nintendo .ca-box:hover { transform: translateY(-3px); }
+.skin-nintendo .ca-box small { color: var(--accent); opacity: 1; }
+.skin-nintendo .ca-box em { justify-self: start; margin-top: 4px; padding: 3px 10px; border-radius: 999px; background: var(--n-green); color: #fff; }
+.skin-nintendo .meme-grid { gap: 14px; }
+.skin-nintendo .meme-grid button { border: 5px solid #fff; border-radius: 22px; overflow: visible; background: #fff; box-shadow: 0 5px 0 #e8dcc8, 0 10px 18px rgb(0 0 0 / .12); transition: transform .2s var(--n-bounce); }
+.skin-nintendo .meme-grid button img { border-radius: 17px; }
+.skin-nintendo .meme-grid button:hover { transform: translateY(-5px) rotate(-2deg) scale(1.03); }
+.skin-nintendo .meme-grid button:nth-child(even):hover { transform: translateY(-5px) rotate(2deg) scale(1.03); }
+.skin-nintendo .steps { gap: 12px; }
+.skin-nintendo .steps li { background: #fff; border: 0; border-radius: 22px; padding: 14px 16px 14px 62px; box-shadow: 0 5px 0 #e8dcc8, 0 8px 18px rgb(0 0 0 / .07); }
+.skin-nintendo .steps li::before { --c: var(--n-red); --d: var(--n-red-d); left: 14px; top: 13px; width: 36px; height: 36px; border: 0; color: #fff; background: var(--c); font: 700 19px var(--font-display);
+  box-shadow: inset 0 3px 0 rgb(255 255 255 / .3), 0 3px 0 var(--d); }
+.skin-nintendo .steps li:nth-child(4n+2)::before { --c: var(--n-blue); --d: var(--n-blue-d); }
+.skin-nintendo .steps li:nth-child(4n+3)::before { --c: var(--n-green); --d: var(--n-green-d); }
+.skin-nintendo .steps li:nth-child(4n+4)::before { --c: var(--n-yellow); --d: var(--n-yellow-d); color: #4a3200; }
+.skin-nintendo .steps b { font-weight: 800; font-size: 16px; }
+.skin-nintendo .steps span { opacity: .75; font-weight: 600; }
+.skin-nintendo .big-buy { margin-top: 18px; border: 0; border-radius: 999px; color: #fff; background: var(--n-green); font-weight: 700; font-size: 26px; text-shadow: 0 3px 0 var(--n-green-d);
+  box-shadow: inset 0 4px 0 rgb(255 255 255 / .3), inset 0 -5px 0 rgb(0 0 0 / .1), 0 7px 0 var(--n-green-d), 0 14px 24px rgb(0 0 0 / .18); }
+.skin-nintendo .big-buy:hover { transform: translateY(-3px) scale(1.03); }
+.skin-nintendo .big-buy:active { transform: translateY(5px); box-shadow: 0 2px 0 var(--n-green-d); }
+.skin-nintendo .dex { border: 5px solid #fff; border-radius: 22px; box-shadow: var(--n-soft); }
+.skin-nintendo .soon b { font-weight: 700; color: #fff; -webkit-text-stroke: 9px var(--accent); paint-order: stroke fill; text-shadow: 0 5px 0 var(--n-acc-d); }
+.skin-nintendo .soon span { font-weight: 800; opacity: .7; }
+.skin-nintendo .lightbox { background: rgb(20 10 0 / .55); }
+.skin-nintendo .lightbox img { border: 10px solid #fff; border-radius: 30px; box-shadow: 0 12px 0 rgb(0 0 0 / .15), 0 30px 60px rgb(0 0 0 / .4); animation: n-pop .35s var(--n-bounce); }
+@keyframes n-pop { from { transform: scale(.6); opacity: 0; } }
+
+/* ---- world: skyltar, prompt, tangenter, minikarta ---- */
+.skin-nintendo .w-pin b { padding: 8px 15px 7px; background: #fff; color: var(--n-ink); border: 0; border-radius: 999px; font: 800 13px/1 var(--font-body); letter-spacing: .06em;
+  box-shadow: 0 4px 0 #dccfbb, 0 8px 16px rgb(0 0 0 / .18); }
+.skin-nintendo .w-pin b::after { bottom: -9px; margin-left: -8px; border: 8px solid transparent; border-top: 9px solid #fff; border-bottom: 0; }
+.skin-nintendo .w-pin:hover b, .skin-nintendo .w-pin.near b { background: var(--accent); color: #fff; text-shadow: 0 2px 0 var(--n-acc-d); box-shadow: 0 4px 0 var(--n-acc-d), 0 0 0 4px var(--n-sel), 0 8px 16px rgb(0 0 0 / .2); }
+.skin-nintendo .w-pin:hover b::after, .skin-nintendo .w-pin.near b::after { border-top-color: var(--accent); }
+.skin-nintendo .w-prompt { padding: 8px 22px 8px 8px; border-radius: 999px; color: var(--n-ink); background: #fff; font: 800 17px var(--font-body); text-transform: none; white-space: nowrap;
+  box-shadow: 0 5px 0 #dccfbb, 0 14px 28px rgb(0 0 0 / .22); }
+.skin-nintendo .w-prompt:active { box-shadow: 0 1px 0 #dccfbb; }
+/* "E" ritas som en rund A-knapp */
+.skin-nintendo .w-prompt kbd { width: 36px; height: 36px; min-width: 0; padding: 0; border: 0; border-radius: 50%; color: #fff; background: var(--n-green); font: 800 16px var(--font-body);
+  box-shadow: inset 0 3px 0 rgb(255 255 255 / .35), 0 3px 0 var(--n-green-d); animation: n-breathe 1.2s ease-in-out infinite; }
+.skin-nintendo .w-keys { color: #fff; font-weight: 800; text-shadow: 0 2px 4px rgb(0 0 0 / .35); }
+.skin-nintendo .w-keys kbd { border: 0; border-radius: 8px; background: #fff; color: var(--n-ink); box-shadow: 0 3px 0 #cbbca6; }
+.skin-nintendo .w-minimap { border: 6px solid #fff; box-shadow: 0 5px 0 #dccfbb, 0 12px 24px rgb(0 0 0 / .2); }
+.skin-nintendo .w-marker { border-color: #fff; box-shadow: 0 0 0 3px var(--accent); }
+
+/* ---- intro (dream) följer med fonten ---- */
+.skin-nintendo :is(.ix-title, .ix-mark) { font-weight: 700; }
+
+@media (max-width: 760px) {
+  .skin-nintendo .brand { font-size: 26px; -webkit-text-stroke-width: 6px; }
+  .skin-nintendo :is(.pill, .ca) { height: 38px; padding: 0 12px; }
+  .skin-nintendo .pill[aria-label="X"] { width: 38px; }
+  .skin-nintendo .dock { border-radius: 26px; }
+  .skin-nintendo .dock button { padding: 10px 8px; font-size: 12px; flex: 1; }
+  .skin-nintendo .panel { border-radius: 28px; transform: translateY(40px) scale(.7); }
+  .skin-nintendo .panel.open { transform: none; }
+  .skin-nintendo .panel-title { font-size: 38px; }
+}
